@@ -22,7 +22,7 @@
                     </x-nav-link>
                 @elseif(auth()->check() && auth()->user()->role !== 'admin')
                     <x-nav-link :href="route('employe.dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('User Dashboard') }}
+                        {{ __('Employee Dashboard') }}
                     </x-nav-link>
                 @endif
 

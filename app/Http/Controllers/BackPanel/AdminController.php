@@ -5,18 +5,18 @@ namespace App\Http\Controllers\BackPanel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company;
-use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Mail;
 use App\Mail\TestMail; 
 use DB ;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
    public function dashboard(){
-      $employees = Employee::all();
+      $employees = User::where('role','employe')->get();
       $companies = Company::all();
       return view('admin.dashboard', compact('employees', 'companies'));
    }
@@ -38,10 +38,7 @@ class AdminController extends Controller
          'password' => Hash::make($request->input('password')),
          'role' => 'admin', // Set the role to 'admin'
       ]);
-      $employees = Employee::all();
-      $companies = Company::all();
-      // return redirect()->route('success.page');
-      return view('admin.dashboard', compact('employees', 'companies'));
+      return view('admin.dashboard');
 
    }
    //employee
@@ -49,92 +46,74 @@ class AdminController extends Controller
    public function storeEmploye(Request $request)
    {
 
-      Employee::create([
-         'name' => $request->input('name'),
-         'email' => $request->input('email'),
-         'password' => Hash::make($request->input('password')),
-         'role' =>$request->input('role'), // Set the role to 'admin'
-         'belongs_to_company' => $request->input('company_id'), // You can provide a value if needed or leave it null
-      ]);
-       User::create([
-         'name' => $request->input('name'),
-         'email' => $request->input('email'),
-         'password' => Hash::make($request->input('password')),
-         'role' => 'employe', // Set the role to 'admin'
-         'status' => 'inactive', // Set the role to 'admin'
-      ]);
-      $email = $request->input('email') ;
+      $validator = Validator::make($request->all(), [
+         'email' => 'required|email|unique:users',
+     ]);
+ 
+     if ($validator->fails()) {
+         return redirect()->back()->withErrors($validator)->withInput();
+     }
+     $name = $request->input('name');
+     $email = $request->input('email');
+     $password = $request->input('password');
+     $status = $request->input('status');
+ 
+     $user = User::createUserEmployee($name, $email, $password, $status);
+ 
       $userEmployee = User::where('email', $email)->first();
-      // dd($userEmployee);
       $subject ='Invitation to join our Comapny Tersea ' ;
-      $body = 'This is a test that invite you to join the application mail : '.$request->input('email').' password :'.$request->input('password') ;
+      $body = 'This is a test that invite you to join the application mail : '.$email.' password :'.$request->input('password') ;
 
       Mail::to($email)->send(new TestMail($subject,$body));
       $userEmployee->sendEmailVerificationNotification();
  
       
-      $employees = Employee::all();
-      $companies = Company::all();
-      return view('admin.dashboard', compact('employees', 'companies'));
+      return view('admin.dashboard');
 
    }
    public function createEmploye(){
       return view('admin.createEmploye');
    }
+   // Action est la methodes qui relance la partie recherche employee par non ou email 
    public function action(Request $request){
       if($request->ajax()){
-
          $query = $request->get('query');
-
          $output = '';
             if($query != ''){
-               $data =Employee::where('email', 'like', '%' . $query . '%')->orWhere('name','like','%'.$query.'%')->get();
-               // validated 
+               $data = User::dataSearch($request);
             }
             
             else{
-               $data = Employee::all();
+               $data = User::where('role','employe')->get();
             }
             $total_row = $data->count();
             if($total_row > 0){
 
-                     foreach($data as $row){
-                        $company = Company::find($row->belongs_to_company);
-                        if ($company) {
-                           $companyName = $company->name;
-                       } else {
-                           $companyName = "No Company";
-                       }
-                        $output .='<tr>
-                        <td>'.$row->name.'</td>
-                        <td>'.$row->email.'</td>
-                        <td> '.$companyName.' </td>
-                        <td>
-                           <a href="' . route("employee.showDetails", ["id" => $row->id]) . '" class="btn btn-sm btn-primary">
-                                 View More Details
-                           </a>
-                        </td>
-                     
-                           </tr>';
+                   
+                     $jsonData = [];
+                     foreach ($data as $row) {
+                        if ($row->company) {
+                              $companyName = $row->company->name;
+                        } else {
+                              $companyName = "No Company";
+                        }
+                        $jsonData[] = [
+                              'name' => $row->name,
+                              'email' => $row->email,
+                              'companyName' => $companyName,
+                              'details_url' => route("employee.showDetails", ["id" => $row->id]),
+                        ];
                      }
+
+                     //  tableau en JSON
+                     $jsonResponse = json_encode($jsonData);
+
+                     // envoyer la réponse JSON
+                     return response()->json($jsonResponse);
             }
             else{
-               $output='<tr>
-                     <td> No Data </td>
-                     <td > No Data </td>
-                     <td> No Data </td>
-                     <td>
-                         <a class="btn btn-sm btn-disabled">
-                             No Details
-                         </a>
-                     </td>
-                  </tr>';
-            }
-            $data = array(
-               'table_data' => $output,
-               'total_data' => $total_row,
-            );
             echo json_encode($data);
+            }
       }
    }
 

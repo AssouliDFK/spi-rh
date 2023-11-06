@@ -11,12 +11,12 @@ class Company extends Model
 
     protected $fillable = [
         'name',
-        // Add any other attributes specific to the Company model.
     ];
 
-    // Define any relationships, for example, if a company has many employees.
-    public function employees()
+   
+    public function users()
     {
-        return $this->hasMany(Employee::class, 'belongs_to_company', 'id');
+        return $this->hasMany(User::class);
     }
+    
 }

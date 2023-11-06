@@ -24,8 +24,8 @@
                         <tr>
                             <th>Company</th>
                             <td>
-                                @if ($employee->belongs_to_company)
-                                    {{ $company->name }}
+                                @if ($employee->id_company)
+                                    {{ $companyName }}
                                 @else
                                     No Company
                                 @endif

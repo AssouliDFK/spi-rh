@@ -13,6 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $companyAId = DB::table('companies')->where('name', 'Company A')->value('id');
         DB::table('users')->insert([
             [
                 'name' => 'Admin youssef',
@@ -25,87 +26,55 @@ class UserSeeder extends Seeder
                 'name' => 'Youssef',
                 'email' => 'youssef@gmail.com',
                 'role'=> 'admin',
-                'status'=> 'active',
+                'status'=> 'pending',
                 'password' => bcrypt('password')
             ],
             [
                 'name' => 'Zineb',
                 'email' => 'zineb@gmail.com',
                 'role'=> 'admin',
-                'status'=> 'active',
+                'status'=> 'inactive',
                 'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'A.Employe1',
-                'email' => 'a.employe@gmail.com',
-                'role'=> 'employe',
-                'status'=> 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'B.Employe2',
-                'email' => 'B.employe@gmail.com',
-                'role'=> 'employe',
-                'status'=> 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'C.Employe3',
-                'email' => 'a.employe3@gmail.com',
-                'role'=> 'employe',
-                'status'=> 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'D.Employe4',
-                'email' => 'd.employe@gmail.com',
-                'role' => 'employe',
-                'status' => 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'E.Employe5',
-                'email' => 'e.employe@gmail.com',
-                'role' => 'employe',
-                'status' => 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'F.Employe6',
-                'email' => 'f.employe@gmail.com',
-                'role' => 'employe',
-                'status' => 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'G.Employe7',
-                'email' => 'g.employe@gmail.com',
-                'role' => 'employe',
-                'status' => 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'H.Employe8',
-                'email' => 'h.employe@gmail.com',
-                'role' => 'employe',
-                'status' => 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'I.Employe9',
-                'email' => 'i.employe@gmail.com',
-                'role' => 'employe',
-                'status' => 'active',
-                'password' => bcrypt('password')
-            ],
-            [
-                'name' => 'J.Employe10',
-                'email' => 'j.employe@gmail.com',
-                'role' => 'employe',
-                'status' => 'active',
-                'password' => bcrypt('password')
-            ],
+            ]
             
     ]);
+    DB::table('users')->insert([
+        [
+            'name' => 'A.Employe1',
+            'email' => 'a.employe@gmail.com',
+            'role'=> 'employe',
+            'status'=> 'active',
+            'password' => bcrypt('password'),
+            'id_company' => $companyAId ,
+        ],
+        [
+            'name' => 'B.Employe2',
+            'email' => 'B.employe@gmail.com',
+            'role'=> 'employe',
+            'status'=> 'inactive',
+            'password' => bcrypt('password'),
+            'id_company' => 1
+
+        ],
+        [
+            'name' => 'C.Employe3',
+            'email' => 'a.employe3@gmail.com',
+            'role'=> 'employe',
+            'status'=> 'active',
+            'password' => bcrypt('password'),
+            'id_company' => $companyAId ,
+
+        ],
+        [
+            'name' => 'D.Employe4',
+            'email' => 'd.employe@gmail.com',
+            'role' => 'employe',
+            'status' => 'pending',
+            'password' => bcrypt('password'),
+            'id_company' => $companyAId ,
+
+        ]
+        
+]);
     }
 }

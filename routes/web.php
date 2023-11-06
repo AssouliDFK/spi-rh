@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth','role:admin'])->group(function () {
+Route::middleware(['auth','role:admin','status:active'])->group(function () {
     // all admin middleware must declared here
         Route::get('admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
 
@@ -84,7 +84,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
 
 });
 
-Route::middleware(['auth','role:employe'])->group(function () {
+Route::middleware(['auth','role:employe','status:active'])->group(function () {
     // all admin middleware must declared here
 Route::get('employe/dashboard',[EmployeController::class,'dashboard'])->name('employe.dashboard');
 

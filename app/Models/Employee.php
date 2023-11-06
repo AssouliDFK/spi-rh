@@ -13,11 +13,6 @@ class Employee extends User
         'name',
         'email',
         'password',
-        'belongs_to_company',
     ];
 
-    public function company(){
-        return $this->hasOne(Company::class, 'belongs_to_company','id');
-    }
-    // Define any additional relationships or methods specific to the Employee model.
 }

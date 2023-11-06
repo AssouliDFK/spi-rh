@@ -31,25 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach($employees as $employe)
-                            <tr>
-                                <td>{{ $employe->name }}</td>
-                                <td>{{ $employe->email }}</td>
-                                <td>@if ($employe->belongs_to_company)
-                                    {{ $employe->belongs_to_company }}
-                                @else
-                                    No Company
-                                @endif</td>
-
-                                <td>
-                                    <a href="{{ route('employee.show', ['id' => $employe->id]) }}" class="btn btn-sm btn-primary">
-                                        View Employee Details
-                                    </a>
-                                </td>
-                                
-                            </tr>
-                            
-                            @endforeach --}}
+                         
                         </tbody>
                     </table>
                 </div>
@@ -74,8 +56,38 @@
                                 query:query},
                     dataType : 'json',
                     success : function(data){
-                        $('tbody').html(data.table_data);
-                        $('total_reocords').text(data.total_data);
+                        console.log(data);
+                        // Clear the table body
+                        $('tbody').html('');
+                        // Check if there is data
+                        if (data.length > 0) {
+                            data = JSON.parse(data);
+                            data.forEach(function(row) {
+                                // Create a new row and append it to the table
+                                var newRow = '<tr>' +
+                                    '<td>' + row.name + '</td>' +
+                                    '<td>' + row.email + '</td>' +
+                                    '<td>' + row.companyName + '</td>' +
+                                    '<td><a href="' + row.details_url + '" class="btn btn-sm btn-primary">View More Details</a></td>' +
+                                    '</tr>';
+
+                                $('tbody').append(newRow);
+                            });
+                        }
+                        else {
+                            // Handle the case where there is no data
+                            var noDataRow = '<tr>' +
+                                '<td> No Data </td>' +
+                                '<td> No Data </td>' +
+                                '<td> No Data </td>' +
+                                '<td>' +
+                                    '<a class="btn btn-sm btn-disabled">No Details</a>' +
+                                '</td>' +
+                            '</tr>';
+                            $('tbody').html(noDataRow);
+                        }
+                        // $('tbody').html(data.table_data);
+                        // $('total_reocords').text(data.total_data);
                     },
                     error :  function(xhr){
                         console.log(xhr.responseText);

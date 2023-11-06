@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 class VerifyEmailController extends Controller
 {
     /**
-     * Mark the authenticated user's email address as verified.
+     * Mark the authenticated user's email address as verified and update user status.
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
@@ -21,6 +21,11 @@ class VerifyEmailController extends Controller
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
+
+            // Update the user's status here
+            $user = $request->user();
+            $user->status = "active"; // Update the status as needed
+            $user->save();
         }
 
         return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
