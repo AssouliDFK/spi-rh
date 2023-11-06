@@ -70,6 +70,7 @@ Before you start, ensure you have the following software installed on your local
 
    ```bash
    php artisan migrate --seed
+   php artisan db:seed UserSeeder 
    ```
 
 8. Install JavaScript dependencies and compile assets:
