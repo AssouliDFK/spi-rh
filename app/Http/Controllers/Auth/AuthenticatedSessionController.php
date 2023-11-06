@@ -29,12 +29,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if($request->user()->role ===  'admin' && $request->user()->status !==  'inactive' ){
+        if ($request->user()->role === 'admin' && $request->user()->status !== 'inactive') {
             return redirect()->intended('admin/dashboard');
-        }
-        elseif($request->user()->role ===  'employe'  && $request->user()->status !==  'inactive'){
+        } elseif ($request->user()->role === 'employe' && $request->user()->status !== 'inactive') {
             return redirect()->intended('employe/dashboard');
         }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

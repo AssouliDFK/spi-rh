@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -16,17 +15,19 @@ class TestMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public $subject , $body ;
-    public function __construct($subject,$body)
+    public $subject;
+
+    public $body;
+
+    public function __construct($subject, $body)
     {
-        $this->subject = $subject ;
-        $this->body  = $body ;
+        $this->subject = $subject;
+        $this->body = $body;
     }
 
     /**
      * Get the message envelope.
      */
-    
     public function envelope(): Envelope
     {
         return new Envelope(
@@ -41,7 +42,7 @@ class TestMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            
+
             view: 'email',
             with: [
                 'subject' => $this->subject, // Passez l'adresse e-mail en tant que variable à la vue.

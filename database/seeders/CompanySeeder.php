@@ -1,9 +1,9 @@
 <?php
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Database\Seeder;
 
 class CompanySeeder extends Seeder
 {
@@ -27,7 +27,7 @@ class CompanySeeder extends Seeder
             ],
             [
                 'name' => 'Company FCBC',
-            ]
-            ]);
+            ],
+        ]);
     }
 }

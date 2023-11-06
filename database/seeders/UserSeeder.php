@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use DB;
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
@@ -18,63 +17,63 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin youssef',
                 'email' => 'admin@tersea.com',
-                'role'=> 'admin',
-                'status'=> 'active',
-                'password' => bcrypt('password')
+                'role' => 'admin',
+                'status' => 'active',
+                'password' => bcrypt('password'),
             ],
             [
                 'name' => 'Youssef',
                 'email' => 'youssef@gmail.com',
-                'role'=> 'admin',
-                'status'=> 'pending',
-                'password' => bcrypt('password')
+                'role' => 'admin',
+                'status' => 'pending',
+                'password' => bcrypt('password'),
             ],
             [
                 'name' => 'Zineb',
                 'email' => 'zineb@gmail.com',
-                'role'=> 'admin',
-                'status'=> 'inactive',
-                'password' => bcrypt('password')
-            ]
-            
-    ]);
-    DB::table('users')->insert([
-        [
-            'name' => 'A.Employe1',
-            'email' => 'a.employe@gmail.com',
-            'role'=> 'employe',
-            'status'=> 'active',
-            'password' => bcrypt('password'),
-            'id_company' => $companyAId ,
-        ],
-        [
-            'name' => 'B.Employe2',
-            'email' => 'B.employe@gmail.com',
-            'role'=> 'employe',
-            'status'=> 'inactive',
-            'password' => bcrypt('password'),
-            'id_company' => 1
+                'role' => 'admin',
+                'status' => 'inactive',
+                'password' => bcrypt('password'),
+            ],
 
-        ],
-        [
-            'name' => 'C.Employe3',
-            'email' => 'a.employe3@gmail.com',
-            'role'=> 'employe',
-            'status'=> 'active',
-            'password' => bcrypt('password'),
-            'id_company' => $companyAId ,
+        ]);
+        DB::table('users')->insert([
+            [
+                'name' => 'A.Employe1',
+                'email' => 'a.employe@gmail.com',
+                'role' => 'employe',
+                'status' => 'active',
+                'password' => bcrypt('password'),
+                'id_company' => $companyAId,
+            ],
+            [
+                'name' => 'B.Employe2',
+                'email' => 'B.employe@gmail.com',
+                'role' => 'employe',
+                'status' => 'inactive',
+                'password' => bcrypt('password'),
+                'id_company' => 1,
 
-        ],
-        [
-            'name' => 'D.Employe4',
-            'email' => 'd.employe@gmail.com',
-            'role' => 'employe',
-            'status' => 'pending',
-            'password' => bcrypt('password'),
-            'id_company' => $companyAId ,
+            ],
+            [
+                'name' => 'C.Employe3',
+                'email' => 'a.employe3@gmail.com',
+                'role' => 'employe',
+                'status' => 'active',
+                'password' => bcrypt('password'),
+                'id_company' => $companyAId,
 
-        ]
-        
-]);
+            ],
+            [
+                'name' => 'D.Employe4',
+                'email' => 'd.employe@gmail.com',
+                'role' => 'employe',
+                'status' => 'pending',
+                'password' => bcrypt('password'),
+                'id_company' => $companyAId,
+
+            ],
+
+        ]);
     }
 }

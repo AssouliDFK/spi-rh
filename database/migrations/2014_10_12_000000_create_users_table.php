@@ -18,9 +18,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->enum('role',['admin','employe'])->default('employe');
-            $table->enum('status',['active','inactive','pending'])->default('active');// change it in production 
-           
+            $table->enum('role', ['admin', 'employe'])->default('employe');
+            $table->enum('status', ['active', 'inactive', 'pending'])->default('active'); // change it in production
+
             $table->foreignId('id_company')->nullable();
             $table->timestamps();
             $table->foreign('id_company')->references('id')->on('companies');

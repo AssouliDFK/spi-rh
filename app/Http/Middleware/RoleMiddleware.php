@@ -15,10 +15,11 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        // if the role comes from the web route is  admin 
-    if( $request->user()->role !== $role){
-        abort(404);
+        // if the role comes from the web route is  admin
+        if ($request->user()->role !== $role) {
+            abort(404);
         }
+
         return $next($request);
     }
 }

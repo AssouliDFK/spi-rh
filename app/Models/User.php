@@ -3,13 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\MustVerifyEmail; 
 use Illuminate\Support\Facades\Hash;
-
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -47,7 +46,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public static function createUserEmployee($name, $email, $password, $status) {
+
+    public static function createUserEmployee($name, $email, $password, $status)
+    {
         return self::create([
             'name' => $name,
             'email' => $email,
@@ -57,24 +58,25 @@ class User extends Authenticatable implements MustVerifyEmail
         ]);
     }
 
-    public function company(){
-    return $this->belongsTo(Company::class, 'id_company', 'id');
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'id_company', 'id');
     }
-    
+
     public static function dataSearch($request)
     {
         return self::where('role', 'employe')
             ->where(function ($query) use ($request) {
-                $query->where('email', 'like', '%' . $request->get('query') . '%')
-                    ->orWhere('name', 'like', '%' . $request->get('query') . '%');
+                $query->where('email', 'like', '%'.$request->get('query').'%')
+                    ->orWhere('name', 'like', '%'.$request->get('query').'%');
             })
             ->with('company')
             ->get();
     }
 
-    public function updateStatusUser($status) {
+    public function updateStatusUser($status)
+    {
         $this->status = $status;
         $this->save();
     }
-    
 }

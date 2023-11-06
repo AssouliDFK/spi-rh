@@ -24,10 +24,11 @@ class VerifyEmailController extends Controller
 
             // Update the user's status here
             $user = $request->user();
-            $user->status = "active"; // Update the status as needed
+            $user->status = 'active'; // Update the status as needed
             $user->save();
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+        return redirect()->intended(RouteServiceProvider::PROFILE.'?verified=1');
+
     }
 }
