@@ -23,24 +23,6 @@ Route::get('/', function () {
 });
 // Route::resource('/companies', 'CompanyController');
 Route::get('/companies', [CompanyController::class, 'index']);
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-
-    return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-use Illuminate\Http\Request;
-
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // tested user send email
 Route::get('/pingMailSending', [TestController::class, 'index']);
@@ -78,7 +60,11 @@ Route::middleware(['auth', 'role:admin', 'status:active'])->group(function () {
     Route::post('/assign-company/{employee}', [EmployeController::class, 'assignCompany'])->name('employee.assignCompany');
 
     Route::post('admin/create/employe', [AdminController::class, 'storeEmploye'])->name('admin.storeEmploye');
+    Route::get('companies', [CompanyController::class, 'index'])->name('companies.index');
 
+    Route::get('companies/{company}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
+    Route::put('companies/{company}', [CompanyController::class, 'update'])->name('companies.update');
+    Route::delete('companies/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
 
 });
 

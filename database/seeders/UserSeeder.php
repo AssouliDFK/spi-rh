@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
                 'role' => 'employe',
                 'status' => 'active',
                 'password' => bcrypt('password'),
-                'id_company' => $companyAId,
+                'company_id' => $companyAId,
             ],
             [
                 'name' => 'B.Employe2',
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
                 'role' => 'employe',
                 'status' => 'inactive',
                 'password' => bcrypt('password'),
-                'id_company' => 1,
+                'company_id' => 1,
 
             ],
             [
@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
                 'role' => 'employe',
                 'status' => 'active',
                 'password' => bcrypt('password'),
-                'id_company' => $companyAId,
+                'company_id' => $companyAId,
 
             ],
             [
@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
                 'role' => 'employe',
                 'status' => 'pending',
                 'password' => bcrypt('password'),
-                'id_company' => $companyAId,
+                'company_id' => $companyAId,
 
             ],
 

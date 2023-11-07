@@ -20,6 +20,9 @@
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Admin Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('companies.index')" :active="request()->routeIs('companies.index')">
+                        {{ __('Companies') }}
+                    </x-nav-link>
                 @elseif(auth()->check() && auth()->user()->role !== 'admin')
                     <x-nav-link :href="route('employe.dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Employee Dashboard') }}

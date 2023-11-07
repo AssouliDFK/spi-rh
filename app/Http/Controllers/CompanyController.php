@@ -32,8 +32,8 @@ class CompanyController extends Controller
     {
         $companies = Company::all();
 
-        return $companies;
-        // return view('companies.index', compact('companies'));
+        // return $companies;
+        return view('companies.index', compact('companies'));
     }
 
     public function show(Company $company)
@@ -61,8 +61,14 @@ class CompanyController extends Controller
 
     public function destroy(Company $company)
     {
-        $company->delete();
+        if ($company->users->isEmpty()) {
+            // If there are no associated users, delete the company
+            $company->delete();
 
-        return redirect()->route('companies.index')->with('success', 'Company deleted successfully.');
+            return redirect()->route('companies.index')->with('success', 'Company deleted successfully.');
+        } else {
+            // If there are associated users, return with a message
+            return redirect()->route('companies.index')->with('error', 'Cannot delete company with associated users.');
+        }
     }
 }

@@ -21,9 +21,9 @@ return new class extends Migration
             $table->enum('role', ['admin', 'employe'])->default('employe');
             $table->enum('status', ['active', 'inactive', 'pending'])->default('active'); // change it in production
 
-            $table->foreignId('id_company')->nullable();
+            $table->foreignId('company_id')->nullable();
             $table->timestamps();
-            $table->foreign('id_company')->references('id')->on('companies');
+            $table->foreign('company_id')->references('id')->on('companies');
 
         });
     }

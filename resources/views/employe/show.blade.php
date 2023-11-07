@@ -24,7 +24,7 @@
                         <tr>
                             <th>Company</th>
                             <td>
-                                @if ($employee->id_company)
+                                @if ($employee->company_id)
                                     {{ $companyName }}
                                 @else
                                     No Company

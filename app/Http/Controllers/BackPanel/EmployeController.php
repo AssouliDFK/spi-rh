@@ -13,20 +13,20 @@ class EmployeController extends Controller
     {
         $currentUser = auth()->user();
 
-        if (isset($currentUser->id_company)) {
+        if (isset($currentUser->company_id)) {
             $currentUserCompany = $currentUser->with('company');
         } else {
         }
 
         $companies = Company::orderBy('name', 'asc')->paginate(5);
-        $employeesInSameCompany = User::where('id_company', $currentUser->id_company)->get();
+        $employeesInSameCompany = User::where('company_id', $currentUser->company_id)->get();
 
         return view('employe.dashboard', compact('companies', 'employeesInSameCompany'));
     }
 
     public function assignCompany(Request $request, User $employee)
     {
-        $employee->id_company = $request->input('company_id');
+        $employee->company_id = $request->input('company_id');
         $employee->save();
 
         return redirect()->back()->with('success', 'Company assigned successfully');
@@ -62,7 +62,7 @@ class EmployeController extends Controller
             $companyName = 'No Company';
         }
         $companies = Company::all();
-        $company = Company::find($employee->id_company);
+        $company = Company::find($employee->company_id);
         if (! $employee) {
             // Handle the case where the employee with the given ID is not found, e.g., show an error message.
         }
