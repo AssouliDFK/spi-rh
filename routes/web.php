@@ -57,6 +57,7 @@ Route::middleware(['auth', 'role:admin', 'status:active'])->group(function () {
     Route::post('admin/store/company', [CompanyController::class, 'store'])->name('company.save');
 
     Route::get('/employee/delete/{id}', [EmployeController::class, 'delete'])->name('employee.delete');
+    Route::get('/employee/cancel/{id}', [EmployeController::class, 'cancel'])->name('employee.cancel');
     Route::post('/assign-company/{employee}', [EmployeController::class, 'assignCompany'])->name('employee.assignCompany');
 
     Route::post('admin/create/employe', [AdminController::class, 'storeEmploye'])->name('admin.storeEmploye');

@@ -35,8 +35,17 @@
                             <th>Action</th>
                             <td>
                                 <a href="{{ route('employee.delete', ['id' => $employee->id]) }}" class="btn btn-sm btn-danger">
-                                    Delete Account
-                              </a>
+                                        Delete Account
+                                </a>
+                                @if ($employee->status == 'pending')
+                                <a href="{{ route('employee.cancel', ['id' => $employee->id]) }}" class="btn btn-sm btn-warning">
+                                    Cancel Invitation
+                                </a>
+                                @elseif ($employee->status == 'active')
+                                <button class="btn btn-info btn-sm">
+                                    Activated User
+                                </button>
+                                @endif
                             </td>
                         </tr>
                     </table>
