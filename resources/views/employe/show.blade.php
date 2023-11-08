@@ -50,6 +50,7 @@
                         </tr>
                     </table>
                   <div class="p-6 text-gray-900">  
+                    @if ($employee->status !== 'inactive')
                                 <form action="{{ route('employee.assignCompany', ['employee' => $employee]) }}" method="post">
   
                                 @csrf
@@ -66,6 +67,9 @@
                                 </div>
                             
                             </form>
+                    @else
+                    <p>invitation was canceled , remove user and resend invitation if you want to assign a company</p>
+                    @endif()
                 </div>
                 </div>
             </div>

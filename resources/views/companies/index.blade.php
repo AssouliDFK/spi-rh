@@ -10,17 +10,19 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h2 class="text-lg font-semibold mb-4">List of Companies</h2>
-                    <table class="min-w-full">
+                    <table  class="min-w-full">
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Nbr Of Employees</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($companies as $company)
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($companies_users as $company)
                                 <tr>
                                     <td>{{ $company->name }}</td>
+                                    <td>{{ $company->users->count() }}</td>
                                     <td>
                                         <a href="{{ route('companies.edit', $company->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</a>
                                         <form action="{{ route('companies.destroy', $company->id) }}" method="POST" class="inline">

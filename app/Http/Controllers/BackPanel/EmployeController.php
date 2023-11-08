@@ -82,14 +82,16 @@ class EmployeController extends Controller
             return view('admin.dashboard')->with('error', 'Employee not found.');
         }
     }
+
     // deactivate pending if not activated yet
     public function cancel($id)
     {
         $employee = User::find($id);
         if ($employee && $employee->status === 'pending') {
-            $employee->status = "inactive"; // Update the status as needed
-            $employee->password = "changingPassword";
+            $employee->status = 'inactive'; // Update the status as needed
+            $employee->password = 'changingPassword';
             $employee->save();
+
             return view('admin.dashboard')->with('success', 'Invitation Employee Canceled.');
         } else {
             return view('admin.dashboard')->with('error', 'Employee not found.');

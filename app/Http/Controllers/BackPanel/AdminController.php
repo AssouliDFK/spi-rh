@@ -103,16 +103,17 @@ class AdminController extends Controller
                     $jsonData[] = [
                         'name' => $row->name,
                         'email' => $row->email,
+                        'status' => $row->status,
                         'companyName' => $companyName,
                         'details_url' => route('employee.showDetails', ['id' => $row->id]),
                     ];
                 }
+                $response = [
+                    'total_rows' => $total_row,
+                    'data' => $jsonData,
+                ];
 
-                //  tableau en JSON
-                $jsonResponse = json_encode($jsonData);
-
-                // envoyer la réponse JSON
-                return response()->json($jsonResponse);
+                return response()->json($response);
             } else {
                 echo json_encode($data);
             }

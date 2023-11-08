@@ -17,20 +17,21 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <h3 class="mt-3">List of employees :</h3>
-                    <h2> Nbr Employee Search data : <span id="total_records"></span></h2>
+                    <h2 class="text-3xl font-bold text-gray-900"> Nbr Employee Search data : <span id="total_records"></span></h2>
                     <div>
-                        <input type="text" name="search" id="search" class="form-control" placeholder="Search Employe by name">
+                        <input type="text" name="search" id="search" class="form-control border-2 border-gray-300 bg-white h-10 px-5 pr-10 rounded-lg text-sm focus:outline-none" placeholder="Search Employe by name">
                     </div>
-                    <table class="table">
+                    <table class="min-w-full">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Company</th>
                                 <th>Details</th>
+                                <th>status</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white divide-y divide-gray-200">
                          
                         </tbody>
                     </table>
@@ -56,23 +57,27 @@
                                 query:query},
                     dataType : 'json',
                     success : function(data){
-                        console.log(data);
+                        console.log(data.total_rows);
                         // Clear the table body
+                        $('#total_records').html(data.total_rows);
                         $('tbody').html('');
                         // Check if there is data
-                        if (data.length > 0) {
-                            data = JSON.parse(data);
-                            data.forEach(function(row) {
-                                // Create a new row and append it to the table
+                        if (data.total_rows > 0) {
+                            data.data.forEach(function(row) {
                                 var newRow = '<tr>' +
                                     '<td>' + row.name + '</td>' +
                                     '<td>' + row.email + '</td>' +
                                     '<td>' + row.companyName + '</td>' +
                                     '<td><a href="' + row.details_url + '" class="btn btn-sm btn-primary">View More Details</a></td>' +
+                                    '<td>' + row.status + '</td>' +
                                     '</tr>';
 
                                 $('tbody').append(newRow);
-                            });
+                                $('#total_records').html(data.total_rows);
+
+
+                        });
+                      
                         }
                         else {
                             // Handle the case where there is no data
@@ -83,11 +88,13 @@
                                 '<td>' +
                                     '<a class="btn btn-sm btn-disabled">No Details</a>' +
                                 '</td>' +
+                                '<td> No Data </td>' +
                             '</tr>';
                             $('tbody').html(noDataRow);
+                            $('#total_records').html(data.total_rows);
                         }
                         // $('tbody').html(data.table_data);
-                        // $('total_reocords').text(data.total_data);
+                        
                     },
                     error :  function(xhr){
                         console.log(xhr.responseText);
