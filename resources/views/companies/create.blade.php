@@ -18,9 +18,10 @@
     
     
                         <div class="flex items-center justify-end">
-                            <button type="submit">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                                 Add New
                             </button>
+                            
                         </div>
                     </form>
                 </div>
