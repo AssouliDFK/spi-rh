@@ -33,13 +33,6 @@ class CompanyController extends Controller
         $companies = Company::all();
         $companies_users = Company::with('users')->get();
 
-        // foreach ($companies_users as $company) {
-        //     $companyName = $company->name; // Remplacez 'name' par le nom du champ de nom de l'entreprise
-        //     $userCount = $company->users->count(); // Compte le nombre d'utilisateurs dans l'entreprise
-        //     echo "Nom de l'entreprise : $companyName,===================== : $userCount<br>";
-        // }
-
-        // return $companies;
         return view('companies.index', compact('companies', 'companies_users'));
     }
 

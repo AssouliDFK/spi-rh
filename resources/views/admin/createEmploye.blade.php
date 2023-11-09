@@ -36,12 +36,9 @@
                                         <div class="mb-4">
                                             <label class="mb-6" >Select Company:</label>
                                             <select name="company_id" id="company_id">
-                                                {{-- @foreach ($SelectedCompany as $company) --}}
-                                                    {{-- <option value="{{ $company->id }}">{{ $company->name }}</option> --}}
-                                                    <option value="1">Prof. Sigrid Glover MD</option>
-                                                    <option value="2">Jett Gottlieb</option>
-                                                    <option value="3">Layla Weissnat</option>
-                                                {{-- @endforeach --}}
+                                                @foreach ($companies as $company)
+                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     

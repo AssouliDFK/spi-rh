@@ -79,8 +79,9 @@ class AdminController extends Controller
     }
 
     public function createEmploye()
-    {
-        return view('admin.createEmploye');
+    {   
+        $companies = Company::all();
+        return view('admin.createEmploye',compact('companies'));
     }
 
     // Action est la methodes qui relance la partie recherche employee par non ou email
