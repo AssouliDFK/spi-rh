@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
+
     protected $fillable = ['email_sender', 'email_recipient', 'status_invitation'];
+
     protected $table = 'history';
 }

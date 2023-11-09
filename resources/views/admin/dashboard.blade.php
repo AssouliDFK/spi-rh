@@ -24,7 +24,7 @@
                     <table class="min-w-full">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th id="nameHeader" class="clickable-header">Name <span id="sortArrow" bold>&#8597;</span></th>
                                 <th>Email</th>
                                 <th>Company</th>
                                 <th>Details</th>
@@ -40,72 +40,8 @@
         </div>
     </div>
     <script>
-        $(document).ready(function(){
-            fetch_employees_data();
-            function fetch_employees_data(query = ''){
-                // alert("load data "+ query);
-                console.log(query);
-                $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('#signup-token').val()
-                        }
-                    });
-                $.ajax({
-                    url : '{{route('action')}}',
-                    method : 'GET',
-                    data :      {
-                                query:query},
-                    dataType : 'json',
-                    success : function(data){
-                        console.log(data.total_rows);
-                        // Clear the table body
-                        $('#total_records').html(data.total_rows);
-                        $('tbody').html('');
-                        // Check if there is data
-                        if (data.total_rows > 0) {
-                            data.data.forEach(function(row) {
-                                var newRow = '<tr>' +
-                                    '<td>' + row.name + '</td>' +
-                                    '<td>' + row.email + '</td>' +
-                                    '<td>' + row.companyName + '</td>' +
-                                    '<td><a href="' + row.details_url + '" class="btn btn-sm btn-primary">View More Details</a></td>' +
-                                    '<td>' + row.status + '</td>' +
-                                    '</tr>';
-
-                                $('tbody').append(newRow);
-                                $('#total_records').html(data.total_rows);
-
-
-                        });
-                      
-                        }
-                        else {
-                            // Handle the case where there is no data
-                            var noDataRow = '<tr>' +
-                                '<td> No Data </td>' +
-                                '<td> No Data </td>' +
-                                '<td> No Data </td>' +
-                                '<td>' +
-                                    '<a class="btn btn-sm btn-disabled">No Details</a>' +
-                                '</td>' +
-                                '<td> No Data </td>' +
-                            '</tr>';
-                            $('tbody').html(noDataRow);
-                            $('#total_records').html(data.total_rows);
-                        }
-                        // $('tbody').html(data.table_data);
-                        
-                    },
-                    error :  function(xhr){
-                        console.log(xhr.responseText);
-                    }
-                });
-            }
-            $(document).on('keyup','#search', function(){
-                var query =$(this).val();
-                fetch_employees_data(query);
-            });
-        });
-
+        // use the actionRoute variable to define the URL for your AJAX request
+        var actionRoute = '{{ route('action') }}';
     </script>
+    <script src="{{ asset('js/employe.js') }}"></script>
 </x-app-layout>

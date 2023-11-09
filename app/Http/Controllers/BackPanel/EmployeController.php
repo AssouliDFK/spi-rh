@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\BackPanel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\HistoryController;
 
 class EmployeController extends Controller
 {
@@ -39,7 +39,7 @@ class EmployeController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'company_id'=>  'required',
+            'company_id' => 'required',
             'password' => 'required|min:8',
         ]);
 
@@ -47,7 +47,7 @@ class EmployeController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
-            'company_id'=>  $request->input('company_id'),
+            'company_id' => $request->input('company_id'),
             'role' => 'employe',
         ]);
 
@@ -94,7 +94,8 @@ class EmployeController extends Controller
             $employee->status = 'inactive'; // Update the status as needed
             $employee->password = 'changingPassword';
             $employee->save();
-            HistoryController::logInvitationHistory(auth()->user()->email,$employee->email, "inactive");
+            HistoryController::logInvitationHistory(auth()->user()->email, $employee->email, 'inactive');
+
             return view('admin.dashboard')->with('success', 'Invitation Employee Canceled.');
         } else {
             return view('admin.dashboard')->with('error', 'Employee not found.');

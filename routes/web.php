@@ -3,8 +3,8 @@
 use App\Http\Controllers\BackPanel\AdminController;
 use App\Http\Controllers\BackPanel\EmployeController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 

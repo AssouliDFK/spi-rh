@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackPanel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Mail\TestMail;
 use App\Models\Company;
 use App\Models\User;
@@ -10,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Mail;
-use App\Http\Controllers\HistoryController;
 
 class AdminController extends Controller
 {
@@ -18,7 +18,6 @@ class AdminController extends Controller
     {
         $employees = User::where('role', 'employe')->get();
         $companies = Company::all();
-
 
         return view('admin.dashboard', compact('employees', 'companies'));
     }
@@ -42,8 +41,7 @@ class AdminController extends Controller
             'password' => Hash::make($request->input('password')),
             'role' => 'admin', // Set the role to 'admin'
         ]);
-        HistoryController::logInvitationHistory(auth()->user()->email, $request->input('email'), "pending");
-
+        HistoryController::logInvitationHistory(auth()->user()->email, $request->input('email'), 'pending');
 
         return view('admin.dashboard');
 
@@ -51,7 +49,7 @@ class AdminController extends Controller
     //employee
 
     public function storeEmploye(Request $request)
-    {   
+    {
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
@@ -70,12 +68,11 @@ class AdminController extends Controller
         $userEmployee = User::where('email', $email)->first();
         $subject = 'Invitation to join our Comapny Tersea ';
         $body = 'This is a test that invite you to join the application mail : '.$email.' password :'.$request->input('password');
-        
+
         // $userEmployee->sendEmailVerificationNotification();
 
         Mail::to($email)->send(new TestMail($subject, $body));
-        HistoryController::logInvitationHistory(auth()->user()->email, $request->input('email'), "pending");
-
+        HistoryController::logInvitationHistory(auth()->user()->email, $request->input('email'), 'pending');
 
         return view('dashboard');
 
@@ -125,6 +122,7 @@ class AdminController extends Controller
                 $response = [
                     'total_rows' => 0,
                 ];
+
                 return response()->json($response);
             }
         }

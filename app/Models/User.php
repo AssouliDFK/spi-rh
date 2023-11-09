@@ -25,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'role',
         'status',
-        'company_id' 
+        'company_id',
     ];
 
     /**
@@ -48,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public static function createUserEmployee($name, $email, $password, $status,$company_id)
+    public static function createUserEmployee($name, $email, $password, $status, $company_id)
     {
         // Validate input data
         // You can add more specific validation rules as needed
@@ -67,11 +67,11 @@ class User extends Authenticatable implements MustVerifyEmail
             'status' => $status,
             'company_id' => $company_id,
         ]);
-    
+
         if ($user) {
             // Send the email verification notification
             $user->sendEmailVerificationNotification();
-    
+
             // You can also return a success message or response here
             return 'User created successfully';
         } else {
