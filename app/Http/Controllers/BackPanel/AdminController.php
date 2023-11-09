@@ -115,7 +115,10 @@ class AdminController extends Controller
 
                 return response()->json($response);
             } else {
-                echo json_encode($data);
+                $response = [
+                    'total_rows' => 0,
+                ];
+                return response()->json($response);
             }
         }
     }
