@@ -87,7 +87,10 @@ Before you start, ensure you have the following software installed on your local
    ```
 
 10. Visit `http://localhost:8000` in your web browser to access the application.
-
+```bash
+   login : admin@admin.com
+   password : password 
+```
 ## Additional Information
 
 For more details and customization options, please refer to the official [Laravel documentation](https://laravel.com/docs).
