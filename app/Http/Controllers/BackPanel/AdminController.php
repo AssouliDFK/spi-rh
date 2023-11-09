@@ -41,7 +41,7 @@ class AdminController extends Controller
             'password' => Hash::make($request->input('password')),
             'role' => 'admin', // Set the role to 'admin'
         ]);
-        HistoryController::logInvitationHistory(auth()->user()->email, $request->input('email'), 'pending');
+        HistoryController::logInvitationHistory(auth()->user()->name, $request->input('name'), 'pending',1);
 
         return view('admin.dashboard');
 
@@ -66,13 +66,14 @@ class AdminController extends Controller
         $company_id = $request->input('company_id');
         $user = User::createUserEmployee($name, $email, $password, $status, $company_id);
         $userEmployee = User::where('email', $email)->first();
+        $company = Company::where('id',$company_id);
         $subject = 'Invitation to join our Comapny Tersea ';
         $body = 'This is a test that invite you to join the application mail : '.$email.' password :'.$request->input('password');
 
         // $userEmployee->sendEmailVerificationNotification();
 
         Mail::to($email)->send(new TestMail($subject, $body));
-        HistoryController::logInvitationHistory(auth()->user()->email, $request->input('email'), 'pending');
+        HistoryController::logInvitationHistory(auth()->user()->name,  $name, 'pending', $company_id);
 
         return view('dashboard');
 

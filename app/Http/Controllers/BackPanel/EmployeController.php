@@ -94,7 +94,7 @@ class EmployeController extends Controller
             $employee->status = 'inactive'; // Update the status as needed
             $employee->password = 'changingPassword';
             $employee->save();
-            HistoryController::logInvitationHistory(auth()->user()->email, $employee->email, 'inactive');
+            HistoryController::logInvitationHistory(auth()->user()->name, $employee->name, 'inactive');
 
             return view('admin.dashboard')->with('success', 'Invitation Employee Canceled.');
         } else {

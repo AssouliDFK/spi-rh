@@ -20,7 +20,7 @@
                                 <tr>
                                     <td>
                                         @if ($entry->status_invitation == 'pending')
-                                        <b> {{ $entry->created_at }} </b>- Admin "{{ $entry->email_sender }}" a invité l'employé "{{ $entry->email_recipient }}" à joindre la société "Company"
+                                        <b> {{ $entry->created_at }} </b>- Admin "{{ $entry->email_sender }}" a invité l'employé "{{ $entry->email_recipient }}" à joindre la société {{ $entry->company_id }}
                                         @elseif ($entry->status_invitation == 'inactive')
                                         <b> {{ $entry->created_at }} </b>- Admin "{{ $entry->email_sender }}" a annulé l'invitation de "{{ $entry->email_recipient }}"
                                         @elseif ($entry->status_invitation == 'active')
