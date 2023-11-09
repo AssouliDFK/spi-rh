@@ -4,6 +4,7 @@ use App\Http\Controllers\BackPanel\AdminController;
 use App\Http\Controllers\BackPanel\EmployeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,7 @@ Route::middleware(['auth', 'role:admin', 'status:active'])->group(function () {
 
     Route::post('admin/create/employe', [AdminController::class, 'storeEmploye'])->name('admin.storeEmploye');
     Route::get('companies', [CompanyController::class, 'index'])->name('companies.index');
+    Route::get('history/index', [HistoryController::class, 'index'])->name('history.index');
 
     Route::get('companies/{company}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
     Route::put('companies/{company}', [CompanyController::class, 'update'])->name('companies.update');

@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\HistoryController;
 
 class VerifyEmailController extends Controller
 {
@@ -25,6 +26,8 @@ class VerifyEmailController extends Controller
             // Update the user's status here
             $user = $request->user();
             $user->status = 'active'; // Update the status as needed
+            HistoryController::validateInvitationHistory($user->email, "active");
+
             $user->save();
         }
 

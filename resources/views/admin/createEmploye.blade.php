@@ -31,7 +31,22 @@
                             <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Role:</label>
                             <input id="role" type="text" class="form-input w-full" name="role" value="employe" disabled>
                         </div>
-    
+                        <div class="p-6 text-gray-900">  
+                                    
+                                        <div class="mb-4">
+                                            <label class="mb-6" >Select Company:</label>
+                                            <select name="company_id" id="company_id">
+                                                {{-- @foreach ($SelectedCompany as $company) --}}
+                                                    {{-- <option value="{{ $company->id }}">{{ $company->name }}</option> --}}
+                                                    <option value="1">Prof. Sigrid Glover MD</option>
+                                                    <option value="2">Jett Gottlieb</option>
+                                                    <option value="3">Layla Weissnat</option>
+                                                {{-- @endforeach --}}
+                                            </select>
+                                        </div>
+                                    
+                      
+                        </div>
                         <div class="mb-4">
                             <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
                             <select id="status" name="status" class="form-select w-full" required>
