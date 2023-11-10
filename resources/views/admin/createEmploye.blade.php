@@ -27,8 +27,8 @@
                             <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
                             <input id="password" type="password" class="form-input w-full" name="password" required>
                         </div>
-                        <div class="mb-4">
-                            <label for="role" class="block text-gray-700 text-sm font-bold mb-2">Role:</label>
+                        <div class="mb-4" hidden>
+                            <label for="role" class="block text-gray-700 text-sm font-bold mb-2" hidden>Role:</label>
                             <input id="role" type="text" class="form-input w-full" name="role" value="employe" disabled>
                         </div>
                         <div class="p-6 text-gray-900">  
@@ -44,11 +44,11 @@
                                     
                       
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4" hidden>
                             <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
                             <select id="status" name="status" class="form-select w-full" required>
-                                <option value="active">Actif</option>
-                                <option value="inactive">Inactif</option>
+                                {{-- <option value="active">Actif</option>
+                                <option value="inactive">Inactif</option> --}}
                                 <option value="pending">Pending</option>
                             </select>
                         </div>

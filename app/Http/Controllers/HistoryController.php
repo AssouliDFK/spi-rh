@@ -18,12 +18,23 @@ class HistoryController extends Controller
     {
         $company = Company::where('id', $companyid)->first(); // Replace 'Company' with your actual model name
         $companyName = $company ? $company->name : null;
-        History::create([
-            'email_sender' => $emailSender,
-            'email_recipient' => $emailRecipient,
-            'status_invitation' => $statusInvitation,
-            'company_id' => $companyName,
-        ]);
+        if($statusInvitation === "addAdmin"){
+            History::create([
+                'email_sender' => $emailSender,
+                'email_recipient' => $emailRecipient,
+                'status_invitation' => $statusInvitation,
+                'company_id' => "Tersea",
+            ]);
+        }else{
+            History::create([
+                'email_sender' => $emailSender,
+                'email_recipient' => $emailRecipient,
+                'status_invitation' => $statusInvitation,
+                'company_id' => $companyName,
+            ]);
+        }
+       
+       
 
     }
 

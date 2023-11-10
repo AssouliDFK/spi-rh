@@ -25,7 +25,9 @@
                                         <b> {{ $entry->created_at }} </b>- Admin "{{ $entry->email_sender }}" a annulé l'invitation de "{{ $entry->email_recipient }}"
                                         @elseif ($entry->status_invitation == 'active')
                                         <b> {{ $entry->created_at }} </b>- "{{ $entry->email_recipient }}" a validé l'invitation
-                                           
+                                        @elseif ($entry->status_invitation == 'addAdmin')
+                                        <b> {{ $entry->created_at }} </b>- Admin "{{ $entry->email_sender }}" a invité l'admin "{{ $entry->email_recipient }}" à joindre l'application .
+
                                         @endif
                                     </td>
                                 </tr>

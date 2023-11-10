@@ -34,15 +34,20 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
         ]);
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        User::create([
+        $userAdmin = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'role' => 'admin', // Set the role to 'admin'
         ]);
-        HistoryController::logInvitationHistory(auth()->user()->name, $request->input('name'), 'pending',1);
-
+        HistoryController::logInvitationHistory(auth()->user()->name, $request->input('name'), 'addAdmin');
+        $userAdmin->sendEmailVerificationNotification();
+        $subject = 'Invitation to join our Comapny Tersea ';
+        $body = 'Credentials Admin mail :  '.$email.' password :'.  $password;
+        Mail::to($email)->send(new TestMail($subject, $body));
         return view('admin.dashboard');
 
     }
