@@ -67,7 +67,7 @@ class AdminController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
         $password = $request->input('password');
-        $status = $request->input('status');
+        $status ="pending";
         $company_id = $request->input('company_id');
         $user = User::createUserEmployee($name, $email, $password, $status, $company_id);
         $userEmployee = User::where('email', $email)->first();
@@ -80,7 +80,7 @@ class AdminController extends Controller
         Mail::to($email)->send(new TestMail($subject, $body));
         HistoryController::logInvitationHistory(auth()->user()->name,  $name, 'pending', $company_id);
 
-        return view('dashboard');
+        return view('dashboard')->with('success', 'Utilisateur ajouté avec succès!');;
 
     }
 

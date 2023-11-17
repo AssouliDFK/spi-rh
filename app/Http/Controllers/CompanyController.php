@@ -24,7 +24,7 @@ class CompanyController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        return view('companies.create');
+        return view('companies.create')->with('success', 'Utilisateur ajouté avec succès!');
     }
 
     // Display a listing of companies.

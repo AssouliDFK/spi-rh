@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\History;
 use App\Models\Company;
 
+
 class HistoryController extends Controller
 {
     public function index()
@@ -14,36 +15,23 @@ class HistoryController extends Controller
         return view('history.index', compact('history'));
     }
 
-    public static function logInvitationHistory($emailSender, $emailRecipient, $statusInvitation, $companyid=Null)
+    public static function logInvitationHistory($emailSender, $emailRecipient, $statusInvitation, $companyName = null)
     {
-        $company = Company::where('id', $companyid)->first(); // Replace 'Company' with your actual model name
+        $company = Company::where('id', $companyName)->first(); // Replace 'Company' with your actual model name
+        // Controller code
         $companyName = $company ? $company->name : null;
-        if($statusInvitation === "addAdmin"){
-            History::create([
-                'email_sender' => $emailSender,
-                'email_recipient' => $emailRecipient,
-                'status_invitation' => $statusInvitation,
-                'company_id' => "Tersea",
-            ]);
-        }else{
-            History::create([
-                'email_sender' => $emailSender,
-                'email_recipient' => $emailRecipient,
-                'status_invitation' => $statusInvitation,
-                'company_id' => $companyName,
-            ]);
-        }
-       
-       
 
+        if ($statusInvitation === "addAdmin") {
+            return History::createHistoryRecord($emailSender, $emailRecipient, $statusInvitation, "Tersea");
+        } else {
+            return History::createHistoryRecord($emailSender, $emailRecipient, $statusInvitation, $companyName);
+        }
     }
 
     public static function validateInvitationHistory($emailRecipient, $statusInvitation)
     {
-        History::create([
-            'email_recipient' => $emailRecipient,
-            'status_invitation' => $statusInvitation,
-        ]);
-
+        // Controller code or wherever this function is called
+        return History::validateInvitationHistory($emailRecipient, $statusInvitation);
     }
 }
+

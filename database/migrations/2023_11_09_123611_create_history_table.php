@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('history', function (Blueprint $table) {
             $table->id();
-            $table->string('email_sender')->nullable();
-            $table->string('email_recipient');
+            $table->string('name_sender')->nullable();
+            $table->string('name_recipient');
+            $table->string('company_name')->nullable();
             $table->string('status_invitation');
             $table->timestamps();
         });
